@@ -1,0 +1,4 @@
+include ':lib-biz1'
+include ':lint-rules'
+include ':app'
+rootProject.name = "LintDemo"

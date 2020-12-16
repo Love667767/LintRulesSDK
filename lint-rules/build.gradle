@@ -1,0 +1,35 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    compileOnly "com.android.tools.lint:lint-api:27.1.1"
+    compileOnly "com.android.tools.lint:lint-checks:27.1.1"
+}
+
+jar {
+    manifest {
+        attributes("Lint-Registry-v2": "com.elson.lint.CustomIssueRegistry")
+    }
+}
+
+
+
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.groupId = "com.elson.lint"
+        pom.artifactId = "lint-rules"
+        pom.version = "1.0.0"
+        pom.packaging = "jar"
+
+        // 配置本地仓库路径
+        repository(url: uri('../repository'))
+    }
+}
